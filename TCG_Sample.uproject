@@ -1,0 +1,22 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{5AE6ADE4-4DA2-E10C-802B-7CB715DB2531}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "TCG_Sample",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		}
+	]
+}
