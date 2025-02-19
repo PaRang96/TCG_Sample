@@ -34,13 +34,13 @@ protected:
 	void Shuffle();
 
 	UFUNCTION(BlueprintCallable)
-	ACardBase* Draw();
+	void Draw();
 
 	UFUNCTION(BlueprintCallable)
 	void ReturnCard(ACardBase* ReturnedCard);
 
 	UFUNCTION(BlueprintCallable)
-	ACardBase* Redraw_Single(ACardBase* ReturnedCard);
+	void Redraw_Single(ACardBase* ReturnedCard);
 
 	UFUNCTION(BlueprintCallable)
 	TArray<ACardBase*> Redraw_Multiple(TArray<ACardBase*> ReturnedCards);

@@ -31,20 +31,29 @@ void ADeck::Shuffle()
 	
 }
 
-ACardBase* ADeck::Draw()
+void ADeck::Draw()
 {
+	if (Decklist.Num() > 0)
+	{
+		Decklist.Pop(true);
+		// deliver acardbase through interface
+	}
+	else
+	{
+		// exhaust damage?
+	}
 }
 
 void ADeck::ReturnCard(ACardBase* ReturnedCard)
 {
-	Decklist.Add(ReturnedCard);
-	Shuffle();
+	int32 InsertIndex = FMath::RandRange(0, Decklist.Num());
+	Decklist.Insert(ReturnedCard, InsertIndex);
 }
 
-ACardBase* ADeck::Redraw_Single(ACardBase* ReturnedCard)
+void ADeck::Redraw_Single(ACardBase* ReturnedCard)
 {
 	ReturnCard(ReturnedCard);
-	return Draw();
+	Draw();
 }
 
 TArray<ACardBase*> ADeck::Redraw_Multiple(TArray<ACardBase*> ReturnedCards)

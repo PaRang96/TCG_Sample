@@ -11,7 +11,7 @@ public class TCG_Sample : ModuleRules
 		PublicDependencyModuleNames.AddRange(new string[] { 
 			"Core", "CoreUObject", 
 			"Engine", "InputCore", 
-			"EnhancedInput" 
+			"EnhancedInput", "TweenMaker"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
