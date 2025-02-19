@@ -11,12 +11,14 @@ public class TCG_Sample : ModuleRules
 		PublicDependencyModuleNames.AddRange(new string[] { 
 			"Core", "CoreUObject", 
 			"Engine", "InputCore", 
-			"EnhancedInput" 
+			"EnhancedInput", "TweenMaker"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+		PrivateDependencyModuleNames.AddRange(new string[] { 
+			"Slate", "SlateCore"
+		});
 		
 		// Uncomment if you are using online features
 		// PrivateDependencyModuleNames.Add("OnlineSubsystem");

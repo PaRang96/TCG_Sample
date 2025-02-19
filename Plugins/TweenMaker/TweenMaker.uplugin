@@ -1,0 +1,30 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.7.4",
+	"FriendlyName": "TweenMaker",
+	"Description": "TweenMaker is an easy to use animation system for Blueprints and C++.",
+	"Category": "Code Plugins",
+	"CreatedBy": "Francesco Desogus",
+	"CreatedByURL": "",
+	"DocsURL": "https://docs.google.com/document/d/19XEcSc4zrrN6bB_G9Hjww0auFVJfyzeMG-v2y9iYM34/",
+	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/91e6e19b486e40ed8ec5a081474e55b3",
+	"SupportURL": "mailto:francesco.desogus9@gmail.com",
+	"EngineVersion": "5.5.0",
+	"CanContainContent": true,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "TweenMaker",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault",
+			"PlatformAllowList": [
+				"Win64",
+				"Mac",
+				"IOS",
+				"Android",
+				"Linux"
+			]
+		}
+	]
+}
