@@ -19,6 +19,11 @@ void ADeck::BeginPlay()
 	
 }
 
+void ADeck::EndPlay(EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+}
+
 // Called every frame
 void ADeck::Tick(float DeltaTime)
 {

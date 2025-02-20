@@ -4,17 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "TCG_Definitions.h"
-#include "CardBase.generated.h"
+#include "Hand.generated.h"
 
 UCLASS()
-class TCG_SAMPLE_API ACardBase : public AActor
+class TCG_SAMPLE_API AHand : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ACardBase();
+	AHand();
 
 protected:
 	// Called when the game starts or when spawned
@@ -25,7 +24,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-protected:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Data")
-	FCardData CardData;
+	
+	
 };

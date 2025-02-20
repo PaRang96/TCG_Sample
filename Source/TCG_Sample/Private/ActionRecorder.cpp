@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "CardBase.h"
+#include "ActionRecorder.h"
 
 
 // Sets default values
-ACardBase::ACardBase()
+AActionRecorder::AActionRecorder()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -13,19 +13,14 @@ ACardBase::ACardBase()
 }
 
 // Called when the game starts or when spawned
-void ACardBase::BeginPlay()
+void AActionRecorder::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
-void ACardBase::EndPlay(EEndPlayReason::Type EndPlayReason)
-{
-	Super::EndPlay(EndPlayReason);
-}
-
 // Called every frame
-void ACardBase::Tick(float DeltaTime)
+void AActionRecorder::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 

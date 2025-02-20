@@ -14,7 +14,5 @@ class TCG_SAMPLE_API UTCG_GameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 	
-	
-	
-	
+	virtual void Init() override;
 };
