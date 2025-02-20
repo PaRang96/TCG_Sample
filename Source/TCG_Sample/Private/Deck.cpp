@@ -2,10 +2,12 @@
 
 
 #include "Deck.h"
+#include "_imp.h"
 
+#define TMP_NAME ADeck::
 
 // Sets default values
-ADeck::ADeck()
+TMP_NAME ADeck()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
@@ -13,25 +15,25 @@ ADeck::ADeck()
 }
 
 // Called when the game starts or when spawned
-void ADeck::BeginPlay()
+virtual void BeginPlay() override
 {
 	Super::BeginPlay();
 	
 }
 
 // Called every frame
-void ADeck::Tick(float DeltaTime)
+virtual void Tick(float DeltaTime) override
 {
 	Super::Tick(DeltaTime);
 
 }
 
-void ADeck::Shuffle()
+void TMP_NAME Shuffle()
 {
 	
 }
 
-void ADeck::Draw()
+void TMP_NAME Draw()
 {
 	if (Decklist.Num() > 0)
 	{
@@ -44,19 +46,19 @@ void ADeck::Draw()
 	}
 }
 
-void ADeck::ReturnCard(ACardBase* ReturnedCard)
+void TMP_NAME ReturnCard(ACardBase* ReturnedCard)
 {
 	int32 InsertIndex = FMath::RandRange(0, Decklist.Num());
 	Decklist.Insert(ReturnedCard, InsertIndex);
 }
 
-void ADeck::Redraw_Single(ACardBase* ReturnedCard)
+void TMP_NAME Redraw_Single(ACardBase* ReturnedCard)
 {
 	ReturnCard(ReturnedCard);
 	Draw();
 }
 
-TArray<ACardBase*> ADeck::Redraw_Multiple(TArray<ACardBase*> ReturnedCards)
+TArray<ACardBase*> TMP_NAME Redraw_Multiple(TArray<ACardBase*> ReturnedCards)
 {
 	return TArray<ACardBase*>();
 }

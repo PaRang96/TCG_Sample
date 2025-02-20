@@ -2,25 +2,29 @@
 
 
 #include "CardBase.h"
+#include "_imp.h"
 
+
+#define TMP_NAME ACardBase::
 
 // Sets default values
-ACardBase::ACardBase()
+TMP_NAME ACardBase()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 }
 
+
 // Called when the game starts or when spawned
-void ACardBase::BeginPlay()
+virtual void TMP_NAME BeginPlay() override
 {
 	Super::BeginPlay();
 	
 }
 
 // Called every frame
-void ACardBase::Tick(float DeltaTime)
+virtual void TMP_NAME Tick(float DeltaTime) override
 {
 	Super::Tick(DeltaTime);
 

@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "CardBase.generated.h"
 
+#define TMP_NAME
+
 UCLASS()
 class TCG_SAMPLE_API ACardBase : public AActor
 {
@@ -13,16 +15,15 @@ class TCG_SAMPLE_API ACardBase : public AActor
 	
 public:	
 	// Sets default values for this actor's properties
-	ACardBase();
+	TMP_NAME ACardBase();
 
 protected:
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	virtual void TMP_NAME BeginPlay() override;
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	
-	
+	virtual void TMP_NAME Tick(float DeltaTime) override;
 };
+
+#undef TMP_NAME

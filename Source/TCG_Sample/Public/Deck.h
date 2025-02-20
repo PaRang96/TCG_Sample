@@ -8,6 +8,8 @@
 
 class ACardBase;
 
+#define TMP_NAME
+
 UCLASS()
 class TCG_SAMPLE_API ADeck : public AActor
 {
@@ -19,11 +21,11 @@ public:
 
 protected:
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	virtual void TMP_NAME BeginPlay() override;
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	virtual void TMP_NAME Tick(float DeltaTime) override;
 
 	
 protected:
@@ -31,17 +33,19 @@ protected:
 	TArray<ACardBase*> Decklist;
 
 	UFUNCTION(BlueprintCallable)
-	void Shuffle();
+	void TMP_NAME Shuffle();
 
 	UFUNCTION(BlueprintCallable)
-	void Draw();
+	void TMP_NAME Draw();
 
 	UFUNCTION(BlueprintCallable)
-	void ReturnCard(ACardBase* ReturnedCard);
+	void TMP_NAME ReturnCard(ACardBase* ReturnedCard);
 
 	UFUNCTION(BlueprintCallable)
-	void Redraw_Single(ACardBase* ReturnedCard);
+	void TMP_NAME Redraw_Single(ACardBase* ReturnedCard);
 
 	UFUNCTION(BlueprintCallable)
-	TArray<ACardBase*> Redraw_Multiple(TArray<ACardBase*> ReturnedCards);
+	TArray<ACardBase*> TMP_NAME Redraw_Multiple(TArray<ACardBase*> ReturnedCards);
 };
+
+#undef TMP_NAME
