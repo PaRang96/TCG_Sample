@@ -39,18 +39,48 @@ struct FManaCost
 };
 
 USTRUCT(BlueprintType)
-struct FCardData
+struct FCardData : public FTableRowBase
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Default")
 	FText CardName;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Default")
-	TArray<FManaCost> Costs;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Default")
 	FText CardDescription;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Default")
 	ECardType CardType;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Default")
 	ERarity Rarity;
+};
+
+USTRUCT(BlueprintType)
+struct FMinionData : public FCardData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Minion")
+	int32 HitPoint;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Minion")
+	int32 Attack;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Minion")
+	TArray<FManaCost> Costs;
+
+};
+
+USTRUCT(BlueprintType)
+struct FSpellData : public FCardData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Spell")
+	TArray<FManaCost> Costs;
+};
+
+USTRUCT(BlueprintType)
+struct FLandData : public FCardData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Land")
+	EManaType IncreaseManaType;
 };

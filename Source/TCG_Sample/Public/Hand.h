@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Hand.generated.h"
 
+class ACardBase;
+
 UCLASS()
 class TCG_SAMPLE_API AHand : public AActor
 {
@@ -24,6 +26,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
-	
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player")
+	TArray<ACardBase*> CardsInHand;
 };

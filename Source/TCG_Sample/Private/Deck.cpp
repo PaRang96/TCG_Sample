@@ -28,12 +28,22 @@ void ADeck::EndPlay(EEndPlayReason::Type EndPlayReason)
 void ADeck::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void ADeck::Shuffle()
 {
-	
+	if (Decklist.Num() > 0)
+	{
+		int32 LastIndex = Decklist.Num() - 1;
+		for (int32 i = 0; i <= LastIndex; i++)
+		{
+			int32 Index = FMath::RandRange(i, LastIndex);
+			if (i != Index)
+			{
+				Decklist.Swap(i, Index);
+			}
+		}
+	}
 }
 
 void ADeck::Draw()
