@@ -24,5 +24,9 @@ class TCG_SAMPLE_API ICardInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	
-	
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnDrawValidCard(class ACardBase* DrewCard);
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnDrawVoidCard(const int32& Count);
 };

@@ -84,3 +84,18 @@ struct FLandData : public FCardData
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Land")
 	EManaType IncreaseManaType;
 };
+
+UENUM()
+enum class EGamePhase : uint8
+{
+	Start,
+	Mulligan,
+	PreTurnStart,
+	TurnStart,
+	PostTurnStart,
+	TurnOngoing,
+	PreTurnEnd,
+	TurnEnd,
+	PostTurnEnd,
+	GameEnd,
+};

@@ -12,3 +12,10 @@ void ATCG_GameMode::EndPlay(EEndPlayReason::Type EndPlayReason)
 {
 
 }
+
+void ATCG_GameMode::RequestPhaseChange_Implementation(const EGamePhase TargetPhase)
+{
+	CurrentGamePhase = TargetPhase;
+	
+	OnGamePhaseChanged.Broadcast(GetCurrentGamePhase());
+}

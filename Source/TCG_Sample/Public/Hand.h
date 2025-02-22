@@ -8,6 +8,9 @@
 
 class ACardBase;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnTurnStart);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnTurnEnd);
+
 UCLASS()
 class TCG_SAMPLE_API AHand : public AActor
 {
@@ -29,4 +32,10 @@ public:
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player")
 	TArray<ACardBase*> CardsInHand;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnTurnStart OnTurnStart;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnTurnEnd OnTurnEnd;
 };

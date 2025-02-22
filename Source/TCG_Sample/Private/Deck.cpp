@@ -2,7 +2,9 @@
 
 
 #include "Deck.h"
-
+#include "CardInterface.h"
+#include "GameFramework/Character.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ADeck::ADeck()
@@ -16,7 +18,11 @@ ADeck::ADeck()
 void ADeck::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (HasAuthority())
+	{
+		SetDeckOwner();
+	}
 }
 
 void ADeck::EndPlay(EEndPlayReason::Type EndPlayReason)
@@ -24,10 +30,25 @@ void ADeck::EndPlay(EEndPlayReason::Type EndPlayReason)
 	Super::EndPlay(EndPlayReason);
 }
 
+void ADeck::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+}
+
 // Called every frame
 void ADeck::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void ADeck::SetDeckOwner_Implementation()
+{
+
+}
+
+void ADeck::OnVoidDrawCount()
+{
+	UE_LOG(LogTemp, Log, TEXT("Current Void Draws: %d"), VoidDrawCount);
 }
 
 void ADeck::Shuffle()
@@ -48,14 +69,27 @@ void ADeck::Shuffle()
 
 void ADeck::Draw()
 {
+
 	if (Decklist.Num() > 0)
 	{
-		Decklist.Pop(true);
-		// deliver acardbase through interface
+		ACardBase* DrewCard = Decklist.Pop(true);
+
+		if (DeckOwner->Implements<UCardInterface>())
+		{
+			ICardInterface::Execute_OnDrawValidCard(DeckOwner, DrewCard);
+		}
 	}
 	else
 	{
-		// exhaust damage?
+		VoidDrawCount++;
+		TArray<AActor*> Temp;
+		UGameplayStatics::GetAllActorsWithInterface(GWorld,
+			UCardInterface::StaticClass(), Temp);
+
+		for (AActor* Element : Temp)
+		{
+			ICardInterface::Execute_OnDrawVoidCard(Element, VoidDrawCount);
+		}
 	}
 }
 
@@ -74,5 +108,10 @@ void ADeck::Redraw_Single(ACardBase* ReturnedCard)
 TArray<ACardBase*> ADeck::Redraw_Multiple(TArray<ACardBase*> ReturnedCards)
 {
 	return TArray<ACardBase*>();
+}
+
+int32 ADeck::GetRemainingCardNum()
+{
+	return this->Decklist.Num();
 }
 

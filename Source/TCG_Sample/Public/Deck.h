@@ -21,15 +21,29 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	virtual void EndPlay(EEndPlayReason::Type EndPlayReason) override;
+	virtual void GetLifetimeReplicatedProps(
+		TArray<FLifetimeProperty>& OutLifetimeProps) const;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable, Server, Reliable)
+	void SetDeckOwner();
+	void SetDeckOwner_Implementation();
+
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	class ACharacter* DeckOwner;
 	
 protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	TArray<ACardBase*> Decklist;
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnVoidDrawCount)
+	int32 VoidDrawCount;
+
+	UFUNCTION()
+	void OnVoidDrawCount();
 
 	UFUNCTION(BlueprintCallable)
 	void Shuffle();
@@ -45,4 +59,8 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	TArray<ACardBase*> Redraw_Multiple(TArray<ACardBase*> ReturnedCards);
+
+public:
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	int32 GetRemainingCardNum();
 };
