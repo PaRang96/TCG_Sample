@@ -85,7 +85,7 @@ struct FLandData : public FCardData
 	EManaType IncreaseManaType;
 };
 
-UENUM(BlueprintType)
+UENUM()
 enum class EGamePhase : uint8
 {
 	Start,
@@ -99,11 +99,3 @@ enum class EGamePhase : uint8
 	PostTurnEnd,
 	GameEnd,
 };
-
-USTRUCT(BlueprintType)
-struct FTCG_Session
-{
-	GENERATED_BODY()
-
-	FString SessionOwnerName;
-};	
