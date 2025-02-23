@@ -2,11 +2,10 @@
 
 
 #include "TCG_GameInstance.h"
-#include "OnlineSubSystem.h"
-#include "OnlineSessionSettings.h"
 #include "Engine/World.h"
 #include "Online/OnlineSessionNames.h"
 #include "TCG_Definitions.h"
+#include "OnlineSubsystem.h"
 
 UTCG_GameInstance::UTCG_GameInstance()
 {
@@ -45,10 +44,11 @@ void UTCG_GameInstance::OnCreateSessionComplete(FName ServerName, bool bSuccess)
 	if (bSuccess)
 	{
 		// GetWorld()->ServerTravel()
+		// Server Side -> move to waiting room(?)
 	}
 	else
 	{
-
+		UE_LOG(LogTemp, Error, TEXT("Failed Creating Server"));
 	}
 }
 
@@ -56,7 +56,8 @@ void UTCG_GameInstance::OnFindSessionComplete(bool bSuccess)
 {
 	if (bSuccess)
 	{
-		TArray<FOnlineSessionSearchResult> SearchResults = SessionSearch->SearchResults;
+		SearchResults.Empty();
+		SearchResults = SessionSearch->SearchResults;
 		if (SearchResults.Num() > 0)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Found Servers, Num: %d"), SearchResults.Num());
@@ -64,12 +65,15 @@ void UTCG_GameInstance::OnFindSessionComplete(bool bSuccess)
 			{
 				FString SessionID = SearchResult.Session.GetSessionIdStr();
 				FString SessionOwnerName = SearchResult.Session.OwningUserName;
+				// TODO: Need to Figure out How to Retrieve Session Name
+				// TODO: Deliver Session ID, Session Owner's Name, and Session Name
+				//		 to Widget
 			}
 		}
 	}
 	else
 	{
-
+		UE_LOG(LogTemp, Error, TEXT("Failed Searching Sessions"));
 	}
 }
 
@@ -79,7 +83,11 @@ void UTCG_GameInstance::OnJoinSessionComplete(FName ServerName,
 	switch (JoinSessoinCompleteResult)
 	{
 	case EOnJoinSessionCompleteResult::Success:
+		// UE_LOG(LogTemp, Warning, TEXT(
+		// 	"Joined Session, SessionName: %s"), *ServerName);
+		// when successful
 		break;
+	// all the others -> failure
 	case EOnJoinSessionCompleteResult::SessionIsFull:
 		break;
 	case EOnJoinSessionCompleteResult::SessionDoesNotExist:
@@ -117,10 +125,10 @@ bool UTCG_GameInstance::CreateServer(FString InSessionName, int32 PlayerNum)
 		SessionSettings.bUsesPresence = true;
 		SessionSettings.NumPublicConnections = PlayerNum;
 
-		FName SesionName = FName(InSessionName);
+		FName SessionName = FName(InSessionName);
 
 		bool result = SessionInterface->
-			CreateSession(0, SesionName, SessionSettings);
+			CreateSession(0, SessionName, SessionSettings);
 
 		if (result)
 		{
@@ -149,9 +157,11 @@ bool UTCG_GameInstance::FindServers()
 	return result;
 }
 
-bool UTCG_GameInstance::JoinServer()
+bool UTCG_GameInstance::JoinServer(FString InSessionName)
 {
-	/*SessionInterface->JoinSession()*/
+	FName SessionName = FName(InSessionName);
+	// return SessionInterface->JoinSession(0, SessionName, TargetSession);
+
 	return false;
 }
 
@@ -162,6 +172,5 @@ FString UTCG_GameInstance::GetLocalUserSteamID()
 
 bool UTCG_GameInstance::FindLocalUserSteamID()
 {
-	// qnqnn
 	return false;
 }

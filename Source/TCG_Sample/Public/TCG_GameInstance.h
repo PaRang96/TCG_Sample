@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "Interfaces/OnlineSessionInterface.h"
+#include "OnlineSessionSettings.h"
 #include "TCG_GameInstance.generated.h"
 
 /**
@@ -18,6 +19,9 @@ class TCG_SAMPLE_API UTCG_GameInstance : public UGameInstance
 public:
 	UTCG_GameInstance();
 	virtual ~UTCG_GameInstance();
+
+private:
+	TArray<FOnlineSessionSearchResult> SearchResults;
 
 protected:
 	virtual void Init() override;
@@ -42,7 +46,7 @@ protected:
 	bool FindServers();
 
 	UFUNCTION(BlueprintCallable)
-	bool JoinServer();
+	bool JoinServer(FString InSessionName);
 
 	UFUNCTION(BlueprintCallable)
 	FString GetLocalUserSteamID();
