@@ -30,6 +30,8 @@ protected:
 
 	TSharedPtr<FOnlineSessionSearch> SessionSearch;
 
+	TArray<FTCG_Session> FoundSessions;
+
 	virtual void OnCreateSessionComplete(FName ServerName, bool bSuccess);
 	virtual void OnFindSessionComplete(bool bSuccess);
 	virtual void OnJoinSessionComplete(FName ServerName, 
@@ -40,17 +42,20 @@ protected:
 	FString LocalUserSteamID;
 
 	UFUNCTION(BlueprintCallable)
-	bool CreateServer(FString InSessionName, int32 PlayerNum);
+	bool CreateServer(const FString& InRoomName);
 
 	UFUNCTION(BlueprintCallable)
 	bool FindServers();
 
 	UFUNCTION(BlueprintCallable)
-	bool JoinServer(FString InSessionName);
+	bool JoinServer(FTCG_Session TargetSession);
 
 	UFUNCTION(BlueprintCallable)
 	FString GetLocalUserSteamID();
 
 	UFUNCTION(BlueprintCallable)
 	bool FindLocalUserSteamID();
+
+	UFUNCTION(BlueprintCallable)
+	TArray<FTCG_Session> GetSearchedSessions();
 };

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "OnlineSessionSettings.h"
 #include "TCG_Definitions.generated.h"
 
 // needs more type
@@ -32,7 +33,7 @@ enum class ERarity : uint8
 USTRUCT(BlueprintType)
 struct FManaCost
 {
-	GENERATED_BODY()
+	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TMap<EManaType, int32> Cost;
@@ -41,7 +42,7 @@ struct FManaCost
 USTRUCT(BlueprintType)
 struct FCardData : public FTableRowBase
 {
-	GENERATED_BODY()
+	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Default")
 	FText CardName;
@@ -56,7 +57,7 @@ struct FCardData : public FTableRowBase
 USTRUCT(BlueprintType)
 struct FMinionData : public FCardData
 {
-	GENERATED_BODY()
+	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Minion")
 	int32 HitPoint;
@@ -70,7 +71,7 @@ struct FMinionData : public FCardData
 USTRUCT(BlueprintType)
 struct FSpellData : public FCardData
 {
-	GENERATED_BODY()
+	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Spell")
 	TArray<FManaCost> Costs;
@@ -79,7 +80,7 @@ struct FSpellData : public FCardData
 USTRUCT(BlueprintType)
 struct FLandData : public FCardData
 {
-	GENERATED_BODY()
+	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CardData|Land")
 	EManaType IncreaseManaType;
@@ -103,7 +104,13 @@ enum class EGamePhase : uint8
 USTRUCT(BlueprintType)
 struct FTCG_Session
 {
-	GENERATED_BODY()
+	GENERATED_USTRUCT_BODY()
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString SessionOwnerName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString SessionID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString SessionName;
+	FOnlineSessionSearchResult SearchResult;
 };	

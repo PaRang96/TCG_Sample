@@ -57,17 +57,20 @@ void UTCG_GameInstance::OnFindSessionComplete(bool bSuccess)
 	if (bSuccess)
 	{
 		SearchResults.Empty();
+		FoundSessions.Empty();
 		SearchResults = SessionSearch->SearchResults;
 		if (SearchResults.Num() > 0)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Found Servers, Num: %d"), SearchResults.Num());
 			for (FOnlineSessionSearchResult SearchResult : SearchResults)
 			{
+				// TODO: if session owner is self, ignore the result
 				FString SessionID = SearchResult.Session.GetSessionIdStr();
 				FString SessionOwnerName = SearchResult.Session.OwningUserName;
-				// TODO: Need to Figure out How to Retrieve Session Name
-				// TODO: Deliver Session ID, Session Owner's Name, and Session Name
-				//		 to Widget
+				FString RoomName;
+				SearchResult.Session.SessionSettings.Get(FName("RoomName"), RoomName);
+				FTCG_Session SessionData(SessionOwnerName, SessionID, RoomName, SearchResult);
+				FoundSessions.Add(SessionData);
 			}
 		}
 	}
@@ -103,7 +106,7 @@ void UTCG_GameInstance::OnJoinSessionComplete(FName ServerName,
 	}
 }
 
-bool UTCG_GameInstance::CreateServer(FString InSessionName, int32 PlayerNum)
+bool UTCG_GameInstance::CreateServer(const FString& InRoomName)
 {
 	if (bCreatingServer)
 	{
@@ -114,8 +117,6 @@ bool UTCG_GameInstance::CreateServer(FString InSessionName, int32 PlayerNum)
 	else
 	{
 		bCreatingServer = true;
-		UE_LOG(LogTemp, Warning, TEXT(
-			"Trying To Create Server with Name: %s"), *InSessionName);
 
 		FOnlineSessionSettings SessionSettings;
 		SessionSettings.bAllowJoinInProgress = true;
@@ -123,9 +124,12 @@ bool UTCG_GameInstance::CreateServer(FString InSessionName, int32 PlayerNum)
 		SessionSettings.bIsLANMatch = true;
 		SessionSettings.bShouldAdvertise = true;
 		SessionSettings.bUsesPresence = true;
-		SessionSettings.NumPublicConnections = PlayerNum;
 
-		FName SessionName = FName(InSessionName);
+		// Session Owner & Opponent, Does not Require Password
+		SessionSettings.NumPublicConnections = 2;
+		SessionSettings.Set(FName("RoomName"), InRoomName);
+
+		FName SessionName = FName("CARDGAME");
 
 		bool result = SessionInterface->
 			CreateSession(0, SessionName, SessionSettings);
@@ -157,12 +161,10 @@ bool UTCG_GameInstance::FindServers()
 	return result;
 }
 
-bool UTCG_GameInstance::JoinServer(FString InSessionName)
+bool UTCG_GameInstance::JoinServer(FTCG_Session TargetSession)
 {
-	FName SessionName = FName(InSessionName);
-	// return SessionInterface->JoinSession(0, SessionName, TargetSession);
-
-	return false;
+	return SessionInterface->JoinSession(0, 
+		FName("CARDGAME"), TargetSession.SearchResult);
 }
 
 FString UTCG_GameInstance::GetLocalUserSteamID()
@@ -173,4 +175,9 @@ FString UTCG_GameInstance::GetLocalUserSteamID()
 bool UTCG_GameInstance::FindLocalUserSteamID()
 {
 	return false;
+}
+
+TArray<FTCG_Session> UTCG_GameInstance::GetSearchedSessions()
+{
+	return this->FoundSessions;
 }
