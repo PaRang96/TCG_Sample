@@ -1,10 +1,11 @@
+# This is a main logic section.
+# It means its value and logic are not supposed to change.
+
+
 # Basics
 PWD=$(pwd)
 
-# Parameters
-# You may change them
-UERoot=~/UE2 
-UEFlags=""
+source env.sh
 
 
 # Variables
@@ -13,21 +14,21 @@ proj=$PWD/TCG_Sample.uproject
 projgen=$UERoot/GenerateProjectFiles
 
 shell=""
-shell_ext=""
+bin_ext=""
 
 case "$osname" in
 	Linux)
 		shell=sh
-		shell_ext=sh
+		bin_ext=""
 
 		;;
 	Darwin)
 		shell=sh
-		shell_ext=sh
+		bin_ext=""
 		;;
 	MINGW*|MSYS*)
 		shell=cmd
-		shell_ext=bat
+		bin_ext=.exe
 		;;
 
 	*)
@@ -35,4 +36,4 @@ case "$osname" in
 		;;
 esac
 
-$shell $projgen.$shell_ext $proj -game # $UEFlags
+$UEEnginePath/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool$bin_ext -projectfiles -project=$PWD/TCG_Sample.uproject -game -engine -makefile
