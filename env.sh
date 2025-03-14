@@ -4,5 +4,5 @@
 # An engine-specified for Unreal Engine.
 # As repository, the expected value will be as following:
 #
-# /path/to/EpicGames/UnrealEngine/Engine
-UEEngine="~/UE/Engine"
+# /path/to/EpicGames/UnrealEngine/Engine SUS
+UEEngine="C:/Program Files/Epic Games/UE_5.5/Engine"

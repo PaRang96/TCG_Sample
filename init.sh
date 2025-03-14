@@ -5,7 +5,7 @@
 # Basics
 PWD=$(pwd)
 
-source env.sh
+source ./env.sh
 
 
 # Variables
@@ -36,4 +36,4 @@ case "$osname" in
 		;;
 esac
 
-$UEEnginePath/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool$bin_ext -projectfiles -project=$PWD/TCG_Sample.uproject -game -engine -makefile
+"$UEEngine"/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool$bin_ext -projectfiles -project=$PWD/TCG_Sample.uproject -game -engine -makefile
